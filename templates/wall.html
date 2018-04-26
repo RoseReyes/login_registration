@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loginReg.css') }}">
+    <title>The Wall</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 class="title">Welcome {{ session['name']}}</h2>
+            <div class="logout">
+               <!-- log out goes here -->
+            </div>
+        </div>
+        <div class="body">
+            <form action = "/post" method="POST">
+                <p><input type="hidden" name= "submit" value= "post"></p>
+                <textarea name="messages"></textarea>
+                <input type ="submit" name="submit" value="Post Message">
+            </form>
+
+            <div class="post">
+                {% set count = 1 %}
+                {% for message in all_messages %}
+                    {% for comment in all_comments %}   
+                        {% set count = count + 1 %}
+                            <h3>{{ message['user_name'] }}  {{ message['last_name'] }} - {{ message['time'] }}</h3>
+                            <p>{{ message['message'] }}</p>
+                            <h3>{{ comment['user_name'] }}  {{ comment['last_name'] }} - {{ comment['time'] }}</h3>
+                            <p>{{ comment['comment'] }}</p>
+                        <form action ="/post" method="POST">
+                            <p><input type="hidden" name= "submit" value= "comments{{ count }}"></p>
+                            <textarea name="comments" class="textArea"></textarea>
+                            <input type ="submit" name="submit" value="Post Comments">
+                        </form>
+                    {% endfor %} 
+                {% endfor %} 
+            </div>
+        </div>
+    </div>
+</body>
+</html>

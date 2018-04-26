@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loginReg.css') }}">
+    <title>Login and Registration</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login">
+            <form action="/login" method="post">
+                <input type="hidden" name="formVal" value="loginForms"/>
+                <table class="loginForm">
+                        <tbody class="loginForm">
+                                {% with loginError = get_flashed_messages(category_filter=["loginError"]) %}
+                                    {% if loginError %}
+                                        <ul>
+                                            {% for message in loginError %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endwith %}
+                            <tr>
+                                <td>Email:</td>
+                                <td><input type="email" name="email" class="loginInput"></td>
+                            </tr>
+                            <tr>
+                                <td>Password:</td>
+                                <td><input type="password" name="password" class="loginInput"></td>
+                            </tr>
+                        </tbody> 
+                </table>
+                <p><input type="submit" value="Log In"></p>
+            </form>
+        </div>
+        <div class="registration">
+            <form action="/registration" method="post">
+                    <input type="hidden" name="formVal" value="regForms"/>
+                    <table class="loginForm">
+                            {% with succesNotif = get_flashed_messages(category_filter=["succesNotif"]) %}
+                            {% if succesNotif %}
+                                <ul>
+                                    {% for message in succesNotif %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                            <tbody class="loginForm">
+                                {% with regError = get_flashed_messages(category_filter=["regError"]) %}
+                                    {% if regError %}
+                                        <ul>
+                                            {% for message in regError %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endwith %}
+                                <tr >
+                                    <td>First Name:</td>
+                                    <td><input type="text" name="first_name" class="loginInput"></td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name:</td>
+                                    <td><input type="text" name="last_name" class="loginInput"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td><input type="email" name="email" class="loginInput"></td>
+                                </tr>
+                                <tr>
+                                    <td>Password:</td>
+                                    <td><input type="password" name="password" class="loginInput"></td>
+                                </tr>
+                                <tr>
+                                    <td>Password Confirm:</td>
+                                    <td><input type="password" name="pwdConfirm" class="loginInput"></td>
+                                </tr>
+                            </tbody> 
+                    </table>
+                    <p><input type="submit" value="Register"></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
